@@ -11,8 +11,9 @@ function App() {
 
   return (
     <>
-      <h1 className="my-8 text-center text-5xl font-bold">Hello World</h1>
-      <ProjectsSidebar projectList={projectList} onAddNewProject={addNewProjectHandler} isAddingNewProject={isAddingNewProject}></ProjectsSidebar>
+      <main className="h-screen my-8">
+        <ProjectsSidebar projectList={projectList} onAddNewProject={addNewProjectHandler} isAddingNewProject={isAddingNewProject}/>
+      </main>
     </>
   );
 }

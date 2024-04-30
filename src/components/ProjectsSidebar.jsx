@@ -13,7 +13,7 @@ export default function ProjectsSidebar({ projectList, onAddNewProject, isAdding
             <ul>
                 {
                     projectList.map((project) => {
-                        return <button key={project.name}>{project.name}</button>
+                        return <button key={project.title}>{project.title}</button>
                     })
                 }
             </ul>

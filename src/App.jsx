@@ -60,13 +60,23 @@ function App() {
     });
   };
 
+  const handleDeleteProject = (projectIndex) => {
+    setIsProjectOpen(false);
+    setOpenProjectIndex(0);
+    setProjectList(oldProjectList => {
+      const newProjectList = [...oldProjectList];
+      newProjectList.splice(projectIndex, 1);
+      return newProjectList;
+    });
+  };
+
   let currentMainComponent = <NoProjectSelectedComponent onAddNewProject={addNewProjectHandler} />
 
   if (isAddingNewProject) {
     currentMainComponent = <AddNewProjectComponent onCancel={cancelAddProjectHandler} onSave={AddNewProjectSaveHandler} />
   }
   else if (isProjectOpen) {
-    currentMainComponent = <ProjectComponent project={projectList[openProjectIndex]} projectIndex={openProjectIndex} onAddTask={addTaskToProject} onRemoveTask={removeTaskFromProject} />
+    currentMainComponent = <ProjectComponent project={projectList[openProjectIndex]} projectIndex={openProjectIndex} onDeleteProject={handleDeleteProject} onAddTask={addTaskToProject} onRemoveTask={removeTaskFromProject} />
   }
 
   return (

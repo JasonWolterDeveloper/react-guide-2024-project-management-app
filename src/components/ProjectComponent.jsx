@@ -1,7 +1,7 @@
 import { useState } from "react";
 import CustomInput from "./CustomInput";
 
-export default function ProjectComponent({ project, projectIndex, onAddTask, onRemoveTask }) {
+export default function ProjectComponent({ project, projectIndex, onAddTask, onRemoveTask, onDeleteProject }) {
     const [taskName, setTaskName] = useState('');
 
     const handleTaskChanged = (event) => {
@@ -19,7 +19,10 @@ export default function ProjectComponent({ project, projectIndex, onAddTask, onR
 
     return (
         <div>
-            <h1>{project.title}</h1>
+            <span>
+                <h1>{project.title}</h1>
+                <button onClick={onDeleteProject}>Delete</button>
+            </span>
             <h3>{project.date}</h3>
             <p>{project.description}</p>
             <hr/>

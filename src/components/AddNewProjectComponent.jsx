@@ -40,14 +40,14 @@ export default function AddNewProjectComponent({ onCancel, onSave }) {
     }
 
     return (
-        <div>
-            <div>
-                <button onClick={handleCancel}>Cancel</button>
-                <button onClick={handleSave}>Save</button>
-            </div>
+        <div className="w-[35rem] mt-16">
+            <menu className="flex items-center justify-end gap-4 my-4">
+                <li><button className="text-stone-800 hover:text-stone-950" onClick={handleCancel}>Cancel</button></li>
+                <li><button className="px-6 py-2 rounded-md bg-stone-800 text-stone-50 hover:bg-stone-950" onClick={handleSave}>Save</button></li>
+            </menu>
             <div>
                 <CustomInput label="Title" value={title} onChange={handleTitleChanged}/>
-                <CustomInput label="Description" value={description} onChange={handleDescriptionChanged}/>
+                <CustomInput label="Description" value={description} onChange={handleDescriptionChanged} textarea={true}/>
                 <CustomInput label="Date" value={date} onChange={handleDateChanged}/>
             </div>
         </div>

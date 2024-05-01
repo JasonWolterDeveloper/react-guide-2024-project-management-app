@@ -45,13 +45,28 @@ function App() {
     )
   }
 
+  const removeTaskFromProject = (taskIndex, projectIndex) => {
+    setProjectList(oldProjectList => {
+
+      const updatedProject = {...oldProjectList[projectIndex]}
+
+      const newTasksArray = [...updatedProject.tasks];
+      newTasksArray.splice(taskIndex, 1);
+      updatedProject.tasks = newTasksArray
+
+      let newProjectList = [...oldProjectList]
+      newProjectList[projectIndex] = updatedProject
+      return newProjectList;
+    });
+  };
+
   let currentMainComponent = <NoProjectSelectedComponent onAddNewProject={addNewProjectHandler} />
 
   if (isAddingNewProject) {
     currentMainComponent = <AddNewProjectComponent onCancel={cancelAddProjectHandler} onSave={AddNewProjectSaveHandler} />
   }
   else if (isProjectOpen) {
-    currentMainComponent = <ProjectComponent project={projectList[openProjectIndex]} projectIndex={openProjectIndex} onAddTask={addTaskToProject} />
+    currentMainComponent = <ProjectComponent project={projectList[openProjectIndex]} projectIndex={openProjectIndex} onAddTask={addTaskToProject} onRemoveTask={removeTaskFromProject} />
   }
 
   return (

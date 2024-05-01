@@ -1,4 +1,4 @@
-export default function ProjectsSidebar({ projectList, onAddNewProject, isAddingNewProject }) {
+export default function ProjectsSidebar({ projectList, onAddNewProject, isAddingNewProject, onSelectProject }) {
 
     const addProjectHandler = () => {
         onAddNewProject();
@@ -12,8 +12,8 @@ export default function ProjectsSidebar({ projectList, onAddNewProject, isAdding
             </div>
             <ul>
                 {
-                    projectList.map((project) => {
-                        return <button key={project.title}>{project.title}</button>
+                    projectList.map((project, projectIndex) => {
+                        return <button key={project.title} onClick={() => {onSelectProject(projectIndex)}}>{project.title}</button>
                     })
                 }
             </ul>

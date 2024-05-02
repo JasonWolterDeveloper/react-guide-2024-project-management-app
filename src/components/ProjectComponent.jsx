@@ -23,6 +23,21 @@ export default function ProjectComponent({ project, projectIndex, onAddTask, onR
         onRemoveTask(taskIndex, projectIndex)
     }
 
+    let tasksComponent = <p className="text-stone-800 mb-4">This Project does not have any Tasks Yet</p>
+
+    if (project.tasks != null && !(project.tasks.length === 0)) {           
+        tasksComponent = <ul>
+        {
+            project.tasks.map((task, taskIndex) => {
+                return <span key={task + taskIndex.toString()}>
+                        <p >{task}</p>
+                        <button onClick={() =>{removeTaskHandler(taskIndex)}}>clear</button>
+                    </span>
+            })
+        }
+        </ul>
+    }
+
     return (
         <div className="w-[35rem] mt-16">
             <header className="pb-4 mb-4 border-b-2 border-stone-300">
@@ -36,21 +51,14 @@ export default function ProjectComponent({ project, projectIndex, onAddTask, onR
                 <p className="mb-4 text-stone-400">{formattedDate}</p>
                 <p className="text-stone-600 whitespace-pre-wrap">{project.description}</p>
             </header>
-            <h1>Tasks</h1>
-            <span>
-            <CustomInput label="Task" value={taskName} onChange={handleTaskChanged}/>
-                <button onClick={addTaskHandler}>Add Task</button>
-            </span>
-            <ul>
-                {
-                    project.tasks.map((task, taskIndex) => {
-                        return <span key={task + taskIndex.toString()}>
-                                <p >{task}</p>
-                                <button onClick={() =>{removeTaskHandler(taskIndex)}}>clear</button>
-                            </span>
-                    })
-                }
-            </ul>
+            <section>
+                <h2 className="text-2xl font-bold text-stone-700 mb-4">Tasks</h2>
+                <span>
+                <CustomInput label="Task" value={taskName} onChange={handleTaskChanged}/>
+                    <button onClick={addTaskHandler}>Add Task</button>
+                </span>
+                {tasksComponent}
+            </section>
         </div>
     );
 };

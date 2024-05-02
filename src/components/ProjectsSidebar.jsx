@@ -12,10 +12,13 @@ export default function ProjectsSidebar({ projectList, onAddNewProject, isAdding
             <div>
                 <Button onClick={addProjectHandler} disabled={isAddingNewProject}>+ Add Project</Button>
             </div>
-            <ul>
+            <ul className="mt-8">
                 {
                     projectList.map((project, projectIndex) => {
-                        return <button key={project.title} onClick={() => {onSelectProject(projectIndex)}}>{project.title}</button>
+                        return <li key={"project" + projectIndex.toString()} >
+                            <button className="w-full text-left px-2 py-1 rounded-sm my-1 text-stone-400 hover:text-stone-200 hover:bg-stone-800" 
+                            onClick={() => {onSelectProject(projectIndex)}}>{project.title}</button>
+                        </li>
                     })
                 }
             </ul>

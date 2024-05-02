@@ -1,7 +1,9 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import CustomInput from "./CustomInput";
+import Modal from "./Modal";
 
 export default function AddNewProjectComponent({ onCancel, onSave }) {
+    const errorModal = useRef();
     const [title, setTitle] = useState('');
     const [description, setDescription] = useState('');
     const [date, setDate] = useState(''); 
@@ -18,6 +20,13 @@ export default function AddNewProjectComponent({ onCancel, onSave }) {
         setDate(event.target.value);
     }
 
+    const validateValues = () => {
+        return !(title.trim() === '' ||
+           description.trim() === '' ||
+           date.trim() === ''
+        )
+    }
+
     const clearFields = () => {
         setTitle('');
         setDescription('');
@@ -25,13 +34,18 @@ export default function AddNewProjectComponent({ onCancel, onSave }) {
     }
     
     const handleSave = () => {
-        const project = {
-            title: title,
-            description: description,
-            date: date
+        if (validateValues()) {
+            const project = {
+                title: title,
+                description: description,
+                date: date
+            }
+            clearFields();
+            onSave(project);
         }
-        clearFields();
-        onSave(project);
+        else {
+            errorModal.current.open()
+        }
     };
 
     const handleCancel = () => {
@@ -40,6 +54,18 @@ export default function AddNewProjectComponent({ onCancel, onSave }) {
     }
 
     return (
+        <>
+        <Modal ref={errorModal} buttonCaption="Okay">
+            <h2 className="text-xl font-bold text-stone-700 my-4">
+                Invalid Input
+            </h2>
+            <p className="text-stone-600 mb-4">
+                Oops ... looks like you forgot to enter a value
+            </p>
+            <p className="text-stone-600 mb-4">
+                Please make sure you provide a valid value for every input field.
+            </p>
+        </Modal>
         <div className="w-[35rem] mt-16">
             <menu className="flex items-center justify-end gap-4 my-4">
                 <li><button className="text-stone-800 hover:text-stone-950" onClick={handleCancel}>Cancel</button></li>
@@ -51,5 +77,6 @@ export default function AddNewProjectComponent({ onCancel, onSave }) {
                 <CustomInput type="date" label="Date" value={date} onChange={handleDateChanged}/>
             </div>
         </div>
+        </>
     );
 };

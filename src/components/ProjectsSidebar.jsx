@@ -1,6 +1,6 @@
 import Button from "./Button";
 
-export default function ProjectsSidebar({ projectList, onAddNewProject, isAddingNewProject, onSelectProject }) {
+export default function ProjectsSidebar({ projectList, onAddNewProject, isAddingNewProject, onSelectProject, selectedProjectIndex }) {
 
     const addProjectHandler = () => {
         onAddNewProject();
@@ -15,8 +15,16 @@ export default function ProjectsSidebar({ projectList, onAddNewProject, isAdding
             <ul className="mt-8">
                 {
                     projectList.map((project, projectIndex) => {
+                        let classes = "w-full text-left px-2 py-1 rounded-sm my-1 hover:text-stone-200 hover:bg-stone-800";
+
+                        if (selectedProjectIndex === projectIndex) {
+                            classes += " bg-stone-800 text-stone-200"
+                        } else {
+                            classes += " text-stone-400"
+                        }
+
                         return <li key={"project" + projectIndex.toString()} >
-                            <button className="w-full text-left px-2 py-1 rounded-sm my-1 text-stone-400 hover:text-stone-200 hover:bg-stone-800" 
+                            <button className={classes}
                             onClick={() => {onSelectProject(projectIndex)}}>{project.title}</button>
                         </li>
                     })

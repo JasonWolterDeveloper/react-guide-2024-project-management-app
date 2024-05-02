@@ -5,7 +5,7 @@ import NoProjectSelectedComponent from "./components/NoProjectSelectedComponent"
 import ProjectComponent from "./components/ProjectComponent";
 
 function App() {
-  const [projectList, setProjectList] = useState([{title: "Project 1", tasks: []}, {title: "Wow, cool Project", tasks: []}])
+  const [projectList, setProjectList] = useState([])
   const [isAddingNewProject, setIsAddingNewProject] = useState(false);
   const [isProjectOpen, setIsProjectOpen] = useState(false);
   const [openProjectIndex, setOpenProjectIndex] = useState(0);
@@ -22,9 +22,11 @@ function App() {
     setProjectList(
       (oldProjectList) => {
         newProject.tasks = []
+        setOpenProjectIndex(oldProjectList.length)
         return [...oldProjectList, newProject]
       }
     )
+    setIsProjectOpen(true);
     setIsAddingNewProject(false);
   }
 
@@ -82,7 +84,7 @@ function App() {
   return (
     <>
       <main className="h-screen my-8 flex gap-8">
-        <ProjectsSidebar projectList={projectList} onAddNewProject={addNewProjectHandler} isAddingNewProject={isAddingNewProject} onSelectProject={projectSelectionHandler}/>
+        <ProjectsSidebar projectList={projectList} onAddNewProject={addNewProjectHandler} isAddingNewProject={isAddingNewProject} onSelectProject={projectSelectionHandler} selectedProjectIndex={openProjectIndex}/>
         {currentMainComponent} 
       </main>
     </>

@@ -22,7 +22,7 @@ function App() {
     setProjectList(
       (oldProjectList) => {
         newProject.tasks = []
-        return [newProject, ...oldProjectList]
+        return [...oldProjectList, newProject]
       }
     )
     setIsAddingNewProject(false);

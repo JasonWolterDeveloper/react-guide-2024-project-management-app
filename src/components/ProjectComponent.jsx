@@ -23,16 +23,19 @@ export default function ProjectComponent({ project, projectIndex, onAddTask, onR
         onRemoveTask(taskIndex, projectIndex)
     }
 
-    let tasksComponent = <p className="text-stone-800 mb-4">This Project does not have any Tasks Yet</p>
+    let tasksComponent = <p className="text-stone-800 my-4">This Project does not have any Tasks Yet</p>
 
     if (project.tasks != null && !(project.tasks.length === 0)) {           
-        tasksComponent = <ul>
+        tasksComponent = <ul className="p-4 mt-8 rounded-md bg-stone-100">
         {
             project.tasks.map((task, taskIndex) => {
-                return <span key={task + taskIndex.toString()}>
-                        <p >{task}</p>
-                        <button onClick={() =>{removeTaskHandler(taskIndex)}}>clear</button>
-                    </span>
+                return <li key={"task" + +projectIndex.toString() + "-" + taskIndex.toString()} 
+                           className="flex justify-between my-4">
+                        <span>{task}</span>
+                        <button 
+                            className="text-stone-7 hover:text-red-500"
+                            onClick={() =>{removeTaskHandler(taskIndex)}}>clear</button>
+                    </li>
             })
         }
         </ul>
@@ -53,10 +56,14 @@ export default function ProjectComponent({ project, projectIndex, onAddTask, onR
             </header>
             <section>
                 <h2 className="text-2xl font-bold text-stone-700 mb-4">Tasks</h2>
-                <span>
-                <CustomInput label="Task" value={taskName} onChange={handleTaskChanged}/>
-                    <button onClick={addTaskHandler}>Add Task</button>
-                </span>
+                <div className="flex items-center gap-4">
+                    <input type="text" 
+                        className="w-64 px-2 py-1 rounded-sm bg-stone-200" 
+                        value={taskName} 
+                        onChange={handleTaskChanged}/>
+                    <button className="text-stone-700 hover:text-stone-950"
+                        onClick={addTaskHandler}>Add Task</button>
+                </div>
                 {tasksComponent}
             </section>
         </div>

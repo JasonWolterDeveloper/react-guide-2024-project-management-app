@@ -15,6 +15,9 @@ export default function ProjectComponent({ project, projectIndex, onAddTask, onR
     }
 
     const addTaskHandler = () => {
+        if (taskName.trim() === '') {
+            return;
+        }        
         onAddTask(taskName, projectIndex);
         setTaskName('')
     };
